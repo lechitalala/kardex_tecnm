@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Elemento Raíz con atributo obligatorio -->
+	<xs:element name="ExpedienteAcademico">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="NumeroControl">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<!-- Exactamente 8 dígitos, o letra inicial + 8 dígitos -->
+							<xs:pattern value="[0-9]{8}|[A-Za-z][0-9]{8}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="NombreCompleto">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="5"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="Carrera">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Ingeniería en Informática"/>
+							<xs:enumeration value="Ingeniería en Sistemas Computacionales"/>
+							<xs:enumeration value="Ingeniería Industrial"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="Semestre">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="12"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="Materias">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Materia" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NombreMateria" type="xs:string"/>
+										<xs:element name="Creditos">
+											<xs:simpleType>
+												<xs:restriction base="xs:integer">
+													<xs:minInclusive value="1"/>
+													<xs:maxInclusive value="6"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Calificacion">
+											<xs:simpleType>
+												<xs:restriction base="xs:decimal">
+													<xs:minInclusive value="0.0"/>
+													<xs:maxInclusive value="100.0"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="Aprobada" type="xs:boolean"/>
+									</xs:sequence>
+									<xs:attribute name="clave" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="periodo" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
